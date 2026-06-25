@@ -15,6 +15,7 @@ int main(int argc, char** argv) {
 	numToSend = 67;
 
 	//printf("Process: %d. Sending to my neighbor: %d", my_rank, (my_rank + 1));
+	//test comment
 
 	if(my_rank != (my_size - 1)) {
 
