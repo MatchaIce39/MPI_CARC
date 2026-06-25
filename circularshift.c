@@ -22,16 +22,19 @@ int main(int argc, char** argv) {
 		if(my_rank == 0) {
 			printf("Process %d sending to Process %d\n", my_rank, (my_rank + 1));
 			MPI_Send(&numToSend, 1, MPI_INT, (my_rank + 1), 10, MPI_COMM_WORLD);
+
 			printf("Process %d waiting for message from process %d\n", my_rank, (my_size - 1));
 			MPI_Recv(&numToReceive, 1, MPI_INT, (my_size - 1), 11, MPI_COMM_WORLD, NULL);
 		}
 		else{
+			printf("Process %d receiving from %d\n", my_rank, (my_rank - 1));
 			MPI_Recv(&numToReceive, 1, MPI_INT, (my_rank - 1), 10, MPI_COMM_WORLD, NULL);
+			printf("Process %d, sending to %d\n", my_rank, (my_rank + 1));
 			MPI_Send(&numToSend, 1, MPI_INT, (my_rank + 1), 10, MPI_COMM_WORLD);
 		}
 	}
 	else if(my_rank == (my_size - 1)) {
-		printf("Got to the end!\n");
+		printf("Process %d sending to Process 0\n", (my_size - 1));
 		MPI_Send(&numToSend, 1, MPI_INT, 0, 11, MPI_COMM_WORLD);
 	}
 
