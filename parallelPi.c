@@ -1,9 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <mpi.h>
 
 int main(int argc, char *argv[]) {
 	
+	int my_rank, my_size;
+	MPI_Init(&argc, &argv);
+	MPI_Comm_rank(MPI_COMM_WORLD, &my_rank);
+	MPI_Comm_size(MPI_COMM_WORLD, &my_size);
+
 	if(argc < 2) {
 		printf("Missing arguments\n");
 		return 1;
@@ -27,18 +33,21 @@ int main(int argc, char *argv[]) {
 
 	for (int i = 0; i < (n-1); i++){
 		input = input + (a + deltaX);
-		printf("Next interval is %f\n", input);
+		//printf("Next interval is %f\n", input);
 		double tempFunction = (4 / (1 + pow(input, 2)));
-		printf("f of %f is %f", input, tempFunction);
+		//printf("f of %f is %f", input, tempFunction);
 		tempFunction = tempFunction * 2;
 		result = result + tempFunction;
-		printf("Total result: %f\n", result);
+		//printf("Total result: %f\n", result);
 	}
 
 	temp = (4 / (1 + pow(b,2)));
 	result = result + temp;
 	result = result * (deltaX/2);
 
-	printf("The approximation of the function is %f\n", result);
+	printf("The approximation of pi is %f\n", result);
+	printf("Real value of pi is 3.14159265358979323846\n");
+
+	MPI_Finalize();
 	return 0;
 }
