@@ -51,6 +51,8 @@ int main(int argc, char *argv[]) {
 	printf("value of result is: %f\n", result);
 
 
+	//Test
+
 	//Last edge case I will skip for now
 	/*
 	if (my_rank == (my_size - 1)) {
